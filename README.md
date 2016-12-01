@@ -38,7 +38,7 @@ LICENSE
 =======
 
 This script is hereby placed in the public domain.  It may be used for any
-purchase.  I provide no warranty for this script, nor do I take any
+purpose.  I provide no warranty for this script, nor do I take any
 responsibility for anything it may do.  Use it at your own risk.  I highly
 suggest reading the script so you understand what it does before you execute it.
 
