@@ -42,6 +42,29 @@ purpose.  I provide no warranty for this script, nor do I take any
 responsibility for anything it may do.  Use it at your own risk.  I highly
 suggest reading the script so you understand what it does before you execute it.
 
+BUILD REQUIREMENTS
+==================
+
+To run this script, you will need the following tools.
+
+    gcc
+    g++
+    git
+    curl
+    openssl
+    gpg
+    gzip
+    bzip2
+    xz
+    sed
+    libtool
+
+Since these tools often come with the OS or have OS-specific requirements that I
+can't anticipate, this script does not fetch or build these if they are missing.
+Instead, I suggest installing these using the package management tools for your
+platform.  This script will not download and install these.  It will, however,
+check that these tools are within the current path.
+
 USAGE INSTRUCTIONS
 ==================
 
