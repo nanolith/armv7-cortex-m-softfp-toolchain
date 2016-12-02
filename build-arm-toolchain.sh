@@ -355,8 +355,8 @@ install_once newlib `pwd`/newlib-2.4.0
 #build full GCC C/C++
 extract_once gcc j gcc-6.2.0.tar.bz2
 configure_once gcc_full `pwd`/gcc-6.2.0 "--target=arm-none-eabi --with-cpu=cortex-m4 --with-float=soft --with-mode=thumb --enable-interwork --enable-multilib --with-system-zlib --with-newlib --without-headers --disable-shared --disable-nls --with-gnu-as --with-gnu-ld --with-gmp=$ARM_TOOLCHAIN_DIR --with-mpfr=$ARM_TOOLCHAIN_DIR --with-mpc=$ARM_TOOLCHAIN_DIR --enable-languages=c,c++" full
-build_once gcc_full `pwd`/gcc-6.2.0 bootstrap all full
-install_once gcc_full `pwd`/gcc-6.2.0 bootstrap install full
+build_once gcc_full `pwd`/gcc-6.2.0 full all
+install_once gcc_full `pwd`/gcc-6.2.0 full install
 
 #extract and build gdb
 extract_once gdb J gdb-7.12.tar.xz
