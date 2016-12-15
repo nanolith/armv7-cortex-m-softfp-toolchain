@@ -321,14 +321,14 @@ install_once gmp `pwd`/gmp-6.1.1
 
 #extract and build MPFR
 extract_once mpfr J mpfr-3.1.5.tar.xz
-configure_once mpfr `pwd`/mpfr-3.1.5 "--with-gmp=$ARM_TOOLCHAIN_DIR"
+configure_once mpfr `pwd`/mpfr-3.1.5 "--with-gmp=$ARM_TOOLCHAIN_DIR --disable-shared --enable-static"
 build_once mpfr `pwd`/mpfr-3.1.5
 test_once mpfr `pwd`/mpfr-3.1.5 check
 install_once mpfr `pwd`/mpfr-3.1.5
 
 #extract and build MPC
 extract_once mpc z mpc-1.0.3.tar.gz
-configure_once mpc `pwd`/mpc-1.0.3 "--with-gmp=$ARM_TOOLCHAIN_DIR --with-mpfr=$ARM_TOOLCHAIN_DIR"
+configure_once mpc `pwd`/mpc-1.0.3 "--with-gmp=$ARM_TOOLCHAIN_DIR --with-mpfr=$ARM_TOOLCHAIN_DIR --disable-shared --enable-static"
 build_once mpc `pwd`/mpc-1.0.3
 test_once mpc `pwd`/mpc-1.0.3 check
 install_once mpc `pwd`/mpc-1.0.3
