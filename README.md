@@ -101,12 +101,11 @@ list should be updated if these versions are changed.
 
 | Package      | Version     |
 |-------------:|:------------|
-| GMP          | 6.1.1       |
+| GMP          | 6.1.2       |
 | MPFR         | 3.1.5       |
 | MPC          | 1.0.3       |
-| zlib         | 1.2.8       |
 | binutils     | 2.27        |
-| gcc          | 6.2.0       |
-| newlib       | 2.4.0       |
+| gcc          | 6.3.0       |
+| newlib       | 2.5.0       |
 | gdb          | 7.12        |
 

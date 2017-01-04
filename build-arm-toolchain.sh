@@ -80,6 +80,7 @@ verify_md5_ugly()
         echo "$2 matches MD5 digest $1, for whatever that's worth."
     else
         echo "**** $2 DOES NOT MATCH MD5 DIGEST $1.  ABORTING  ****"
+        exit 1
     fi
 }
 
@@ -92,6 +93,7 @@ verify_sha512()
     else
         echo $dgst
         echo "**** $2 DOES NOT MATCH SHA-512 DIGEST $1.  ABORTING  ****"
+        exit 1
     fi
 }
 
@@ -270,9 +272,9 @@ check_exe libtool
 
 #get GMP
 get_pubkey_if_missing 28C67298 pgp.mit.edu
-download_if_missing https://gmplib.org/download/gmp/gmp-6.1.1.tar.xz.sig
-download_if_missing https://gmplib.org/download/gmp/gmp-6.1.1.tar.xz
-verify_signature gmp-6.1.1.tar.xz.sig gmp-6.1.1.tar.xz
+download_if_missing https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz.sig
+download_if_missing https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz
+verify_signature gmp-6.1.2.tar.xz.sig gmp-6.1.2.tar.xz
 
 #get MPFR
 get_pubkey_if_missing 980C197698C3739D pgp.mit.edu
@@ -286,10 +288,6 @@ download_if_missing ftp://ftp.gnu.org/gnu/mpc/mpc-1.0.3.tar.gz.sig
 download_if_missing ftp://ftp.gnu.org/gnu/mpc/mpc-1.0.3.tar.gz
 verify_signature mpc-1.0.3.tar.gz.sig mpc-1.0.3.tar.gz
 
-#get zlib
-download_if_missing http://zlib.net/zlib-1.2.8.tar.gz
-verify_md5_ugly 44d667c142d7cda120332623eab69f40 zlib-1.2.8.tar.gz
-
 #get binutils
 get_pubkey_if_missing 4AE55E93 pgp.mit.edu
 download_if_missing https://ftp.gnu.org/gnu/binutils/binutils-2.27.tar.gz.sig
@@ -298,13 +296,14 @@ verify_signature binutils-2.27.tar.gz.sig binutils-2.27.tar.gz
 
 #get gcc
 get_pubkey_if_missing FC26A641 pgp.mit.edu
-download_if_missing https://ftp.gnu.org/gnu/gcc/gcc-6.2.0/gcc-6.2.0.tar.bz2.sig
-download_if_missing https://ftp.gnu.org/gnu/gcc/gcc-6.2.0/gcc-6.2.0.tar.bz2
-verify_signature gcc-6.2.0.tar.bz2.sig gcc-6.2.0.tar.bz2
+get_pubkey_if_missing C3C45C06 pgp.mit.edu
+download_if_missing https://ftp.gnu.org/gnu/gcc/gcc-6.3.0/gcc-6.3.0.tar.bz2.sig
+download_if_missing https://ftp.gnu.org/gnu/gcc/gcc-6.3.0/gcc-6.3.0.tar.bz2
+verify_signature gcc-6.3.0.tar.bz2.sig gcc-6.3.0.tar.bz2
 
 #get newlib
-download_if_missing ftp://sourceware.org/pub/newlib/newlib-2.4.0.tar.gz
-verify_sha512 c60665e793dce2368a5baf23560beb50f641e1831854d702d1d7629fb6e9200cf814527f29796792a3d2dff81afee4255723df99ceb0732f99dd9580a17d2ac0 newlib-2.4.0.tar.gz
+download_if_missing ftp://sourceware.org/pub/newlib/newlib-2.5.0.tar.gz
+verify_sha512 4c99e8dfcb4a7ad0769b9e173ff06628d82e4993ef87d3adf9d6b5578626b14de81b4b3c5f0673ddbb49dc9f3d3628f9f8d4432dcded91f5cd3d27b7d44343cd newlib-2.5.0.tar.gz
 
 #get gdb
 get_pubkey_if_missing FF325CF3 pgp.mit.edu
@@ -313,11 +312,11 @@ download_if_missing https://ftp.gnu.org/gnu/gdb/gdb-7.12.tar.xz
 verify_signature gdb-7.12.tar.xz.sig gdb-7.12.tar.xz
 
 #extract and build GMP
-extract_once gmp J gmp-6.1.1.tar.xz
-configure_once gmp `pwd`/gmp-6.1.1
-build_once gmp `pwd`/gmp-6.1.1
-test_once gmp `pwd`/gmp-6.1.1 check
-install_once gmp `pwd`/gmp-6.1.1
+extract_once gmp J gmp-6.1.2.tar.xz
+configure_once gmp `pwd`/gmp-6.1.2
+build_once gmp `pwd`/gmp-6.1.2
+test_once gmp `pwd`/gmp-6.1.2 check
+install_once gmp `pwd`/gmp-6.1.2
 
 #extract and build MPFR
 extract_once mpfr J mpfr-3.1.5.tar.xz
@@ -341,25 +340,25 @@ test_once binutils `pwd`/binutils-2.27 check
 install_once binutils `pwd`/binutils-2.27
 
 #extract and build gcc (bootstrap)
-extract_once gcc j gcc-6.2.0.tar.bz2
-configure_once gcc_bootstrap `pwd`/gcc-6.2.0 "--target=arm-none-eabi --with-cpu=cortex-m4 --with-float=soft --with-mode=thumb --enable-interwork --enable-multilib --with-system-zlib --with-newlib --without-headers --disable-shared --disable-nls --with-gnu-as --with-gnu-ld --with-gmp=$ARM_TOOLCHAIN_DIR --with-mpfr=$ARM_TOOLCHAIN_DIR --with-mpc=$ARM_TOOLCHAIN_DIR --enable-languages=c" bootstrap
-build_once gcc_bootstrap `pwd`/gcc-6.2.0 bootstrap all-gcc
-install_once gcc_bootstrap `pwd`/gcc-6.2.0 bootstrap install-gcc
+extract_once gcc j gcc-6.3.0.tar.bz2
+configure_once gcc_bootstrap `pwd`/gcc-6.3.0 "--target=arm-none-eabi --with-cpu=cortex-m4 --with-float=soft --with-mode=thumb --enable-interwork --enable-multilib --with-system-zlib --with-newlib --without-headers --disable-shared --disable-nls --with-gnu-as --with-gnu-ld --with-gmp=$ARM_TOOLCHAIN_DIR --with-mpfr=$ARM_TOOLCHAIN_DIR --with-mpc=$ARM_TOOLCHAIN_DIR --enable-languages=c" bootstrap
+build_once gcc_bootstrap `pwd`/gcc-6.3.0 bootstrap all-gcc
+install_once gcc_bootstrap `pwd`/gcc-6.3.0 bootstrap install-gcc
 
 #extract and build newlib
-extract_once newlib z newlib-2.4.0.tar.gz
-configure_once newlib `pwd`/newlib-2.4.0 "--target=arm-none-eabi --with-cpu=cortex-m4 --with-float=soft --with-mode=thumb --enable-interwork --enable-multilib --with-gnu-as --with-gnu-ld --disable-nls --disable-newlib-supplied-syscalls --enable-newlib-reent-small --disable-newlib-fvwrite-in-streamio --disable-newlib-fseek-optimization --disable-newlib-wide-orient --enable-newlib-nano-malloc --disable-newlib-unbuf-stream-opt --enable-lite-exit --enable-newlib-global-atexit"
-build_once newlib `pwd`/newlib-2.4.0
-install_once newlib `pwd`/newlib-2.4.0
+extract_once newlib z newlib-2.5.0.tar.gz
+configure_once newlib `pwd`/newlib-2.5.0 "--target=arm-none-eabi --with-cpu=cortex-m4 --with-float=soft --with-mode=thumb --enable-interwork --enable-multilib --with-gnu-as --with-gnu-ld --disable-nls --disable-newlib-supplied-syscalls --enable-newlib-reent-small --disable-newlib-fvwrite-in-streamio --disable-newlib-fseek-optimization --disable-newlib-wide-orient --enable-newlib-nano-malloc --disable-newlib-unbuf-stream-opt --enable-lite-exit --enable-newlib-global-atexit"
+build_once newlib `pwd`/newlib-2.5.0
+install_once newlib `pwd`/newlib-2.5.0
 
 #build full GCC C/C++
-extract_once gcc j gcc-6.2.0.tar.bz2
-configure_once gcc_full `pwd`/gcc-6.2.0 "--target=arm-none-eabi --with-cpu=cortex-m4 --with-float=soft --with-mode=thumb --enable-interwork --enable-multilib --with-system-zlib --with-newlib --without-headers --disable-shared --disable-nls --with-gnu-as --with-gnu-ld --with-gmp=$ARM_TOOLCHAIN_DIR --with-mpfr=$ARM_TOOLCHAIN_DIR --with-mpc=$ARM_TOOLCHAIN_DIR --enable-languages=c,c++" full
-build_once gcc_full `pwd`/gcc-6.2.0 full all
-install_once gcc_full `pwd`/gcc-6.2.0 full install
+extract_once gcc j gcc-6.3.0.tar.bz2
+configure_once gcc_full `pwd`/gcc-6.3.0 "--target=arm-none-eabi --with-cpu=cortex-m4 --with-float=soft --with-mode=thumb --enable-interwork --enable-multilib --with-system-zlib --with-newlib --without-headers --disable-shared --disable-nls --with-gnu-as --with-gnu-ld --with-gmp=$ARM_TOOLCHAIN_DIR --with-mpfr=$ARM_TOOLCHAIN_DIR --with-mpc=$ARM_TOOLCHAIN_DIR --enable-languages=c,c++" full
+build_once gcc_full `pwd`/gcc-6.3.0 full all
+install_once gcc_full `pwd`/gcc-6.3.0 full install
 
 #extract and build gdb
 extract_once gdb J gdb-7.12.tar.xz
-configure_once gdb `pwd`/gdb-7.12 "--target=arm-none-eabi"
+configure_once gdb `pwd`/gdb-7.12 "--target=arm-none-eabi -disable-intl"
 build_once gdb `pwd`/gdb-7.12
 install_once gdb `pwd`/gdb-7.12
