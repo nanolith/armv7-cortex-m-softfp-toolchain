@@ -2,7 +2,7 @@ ARM Toolchain Builder
 =====================
 
 The script in this project builds a toolchain for compiling and linking firmware
-written in C and C++ for ARMv7 Cortex M4 parts.  This script assumes a soft
+written in C and C++ for ARMv7 Cortex M0/M4 parts.  This script assumes a soft
 float and soft float ABI.  If others are interested in making this configurable,
 it would be pretty easy to do.
 
@@ -81,6 +81,9 @@ Make during builds.  For instance, setting the jobs option to the number of
 cores on your machine will significantly speed up builds (e.g. MAKE_OPTS=-j4 or
 MAKE_OPTS=-j8).
 
+To build for Cortex M0 parts, set the optional environment variable, ARM_CPU, to
+cortex-m0.  This overrides the default CPU flag of cortex-m4.
+
 The script should be run in a scratch directory.  If you clone this repo, you
 can use the workspace as your scratch directory for one-off builds.  Anyone
 planning to enhance this script should use a separate scratch directory.  As the
@@ -99,13 +102,13 @@ Package Versions
 This script currently uses the following packages and versions.  Note that this
 list should be updated if these versions are changed.
 
-| Package      | Version     |
-|-------------:|:------------|
-| GMP          | 6.1.2       |
-| MPFR         | 3.1.5       |
-| MPC          | 1.0.3       |
-| binutils     | 2.27        |
-| gcc          | 6.3.0       |
-| newlib       | 2.5.0       |
-| gdb          | 7.12        |
+| Package      | Version              |
+|-------------:|:---------------------|
+| GMP          | 6.1.2                |
+| MPFR         | 4.0.0                |
+| MPC          | 1.1.0                |
+| binutils     | 2.29.1               |
+| gcc          | 7.2.0                |
+| newlib       | 2.5.0.20171222       |
+| gdb          | 8.0.1                |
 
