@@ -11,17 +11,17 @@ major prerequisites for building Binutils and GCC.  It then builds a bootstrap
 version of GCC, uses this to build Newlib, and then builds the full GCC suite
 for C and C++.
 
-ASSUMPTIONS
-===========
+Assumptions
+-----------
 
-This script assumes a Unix-like environment (e.g. OS X, Linux, *BSD, Cygwin,
+This script assumes a Unix-like environment (e.g. OS X, Linux, \*BSD, Cygwin,
 Windows 10?).  It performs some basic sanity checking to ensure that requisite
 utilities are available.  However, I have only tested this script on OS X and
 Linux.  Please open a PR if you need to modify this script for your use or if
 you want to make non-breaking enhancements.
 
-LIMITATIONS
-===========
+Limitations
+-----------
 
 While this script uses GPG to verify signatures and adds missing public keys to
 the keyring, it does not perform any steps to verify that these public keys are
@@ -34,16 +34,16 @@ not be assumed.  That being said, this is typically more checking than the
 average porting tool does, so tinfoil types are welcome to send me a PR that
 enhances this script to do the right thing here, and I'll review it.
 
-LICENSE
-=======
+License
+-------
 
 This script is hereby placed in the public domain.  It may be used for any
 purpose.  I provide no warranty for this script, nor do I take any
 responsibility for anything it may do.  Use it at your own risk.  I highly
 suggest reading the script so you understand what it does before you execute it.
 
-BUILD REQUIREMENTS
-==================
+Build Requirements
+------------------
 
 To run this script, you will need the following tools.
 
@@ -65,8 +65,8 @@ Instead, I suggest installing these using the package management tools for your
 platform.  This script will not download and install these.  It will, however,
 check that these tools are within the current path.
 
-USAGE INSTRUCTIONS
-==================
+Usage Instructions
+------------------
 
 To use this script, the environment variable, ARM_TOOLCHAIN_DIR, should be set
 to the installation location.  This directory needs to be created ahead of time.
@@ -97,7 +97,7 @@ toolchain will exist in the directory pointed to by the ARM_TOOLCHAIN_DIR
 environment variable.
 
 Package Versions
-================
+----------------
 
 This script currently uses the following packages and versions.  Note that this
 list should be updated if these versions are changed.
